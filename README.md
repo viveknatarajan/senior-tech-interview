@@ -8,7 +8,7 @@ API:
 2. Endpoints should be protected by authentication. You may stub/hardcode this but callers must provide an auth header of the form: "Bearer {authToken}"
 3. The patient endpoints should internally call into a patient-service API that we have provided for you at the following url: https://ti-patient-service.azurewebsites.net
    1. Fetch the list of patients by sending a GET request to /patients
-   2. Fetch a specific patient by sending a GET request to /patients/{patientId}
+   2. Fetch a specific patient by sending a GET request to /patient/{patientId}
    3. There is no authentication for these endpoints
 4. Your API project should not expose the patient IDs from the patient-service API. Provide an alternative method of addressing specific patients that your front end will use when calling your API.
 5. Make use of dependency injection and class interfaces. You can use whatever DI framework you wish.
