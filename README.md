@@ -18,9 +18,10 @@ API:
 
 
 Front End:
-1. Create a simple react app with at least two views
+1. Using Create React App, generate a new project with at least two views
    1. Login screen that takes in email and password (this should call your /login endpoint)
    2. Patient view (you can redirect here on successful login)
 2. Display a list of patients returned
-3. When a patient is clicked, show a view of that specific patient (you can do this however you'd like - another route is fine or you can just display another panel underneath your table)
-4. Don't worry too much about styling, but do make it look clean.
+3. When a patient is clicked, show a view of that specific patient (you can model this in whatever way you choose and think makes sense in your design)
+4. Use Formik for form state management
+5. Use MUI components when building your views
