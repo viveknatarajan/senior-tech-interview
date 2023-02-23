@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientAPI", "PatientAPI\PatientAPI.csproj", "{3349CFBE-CBC6-4328-9611-2ADEAEC724FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientAPI.UnitTests", "PatientAPI.UnitTests\PatientAPI.UnitTests.csproj", "{1D97372F-7D32-47B4-9229-B318DCA2424C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3349CFBE-CBC6-4328-9611-2ADEAEC724FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3349CFBE-CBC6-4328-9611-2ADEAEC724FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3349CFBE-CBC6-4328-9611-2ADEAEC724FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D97372F-7D32-47B4-9229-B318DCA2424C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D97372F-7D32-47B4-9229-B318DCA2424C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D97372F-7D32-47B4-9229-B318DCA2424C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D97372F-7D32-47B4-9229-B318DCA2424C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
