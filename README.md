@@ -1,5 +1,7 @@
 # senior-tech-interview
 
+## Credentials : test@test.com | test
+
 API:
 1. Create a new .NET project that will host three endpoints:
    1. GET /patients
@@ -15,13 +17,3 @@ API:
 6. Make use of a configuration file to store the URL for the patient-service API (and any other values you wish). This should be the only place in your code where the URL for the patient-service is stored.
 7. Separate the code for calling the patient-service API into its own class with an interface. Register this class to be used with your dependency injection framework and use that injection in your code where appropriate.
 8. Your application can be structured in anyway that you choose, other than these requirements.  
-
-
-Front End:
-1. Using Create React App, generate a new project with at least two views
-   1. Login screen that takes in email and password (this should call your /login endpoint)
-   2. Patient view (you can redirect here on successful login)
-2. Display a list of patients returned
-3. When a patient is clicked, show a view of that specific patient (you can model this in whatever way you choose and think makes sense in your design)
-4. Use Formik for form state management
-5. Use MUI components when building your views
