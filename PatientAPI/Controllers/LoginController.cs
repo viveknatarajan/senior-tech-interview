@@ -13,11 +13,13 @@ namespace PatientAPI.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        private readonly ILogger<LoginController> _logger;
         private readonly ILoginService _loginService;
 
-        public LoginController(ILoginService loginService)
+        public LoginController(ILogger<LoginController> logger, ILoginService loginService)
         {
-            _loginService = loginService;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _loginService = loginService ?? throw new ArgumentNullException(nameof(loginService));
         }
 
         [HttpPost]
@@ -29,10 +31,21 @@ namespace PatientAPI.Controllers
         {
             if (credential == null || string.IsNullOrWhiteSpace(credential.Email) || string.IsNullOrWhiteSpace(credential.Password))
             {
+                _logger.LogError("Bad credentials.");
                 return BadRequest();
             }
             string token = _loginService.Login(credential);
-            return string.IsNullOrWhiteSpace(token) ? Unauthorized() : Ok(token);
+
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                _logger.LogError($"Failed to login {credential.Email}");
+                return Unauthorized();
+            }
+            else
+            {
+                _logger.LogInformation("Login success");
+                return Ok(token);
+            }
         }
     }
 }

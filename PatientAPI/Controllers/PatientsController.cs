@@ -11,11 +11,13 @@ namespace PatientAPI.Controllers
     [ApiController]
     public class PatientsController : ControllerBase
     {
+        private readonly ILogger<PatientsController> _logger;
         private readonly IPatientService _patientService;
         private readonly IDataMaskService _dataMaskService;
 
-        public PatientsController(IPatientService patientService, IDataMaskService dataMaskService)
+        public PatientsController(ILogger<PatientsController> logger, IPatientService patientService, IDataMaskService dataMaskService)
         {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _patientService = patientService ?? throw new ArgumentNullException(nameof(patientService));
             _dataMaskService = dataMaskService ?? throw new ArgumentNullException(nameof(dataMaskService));
         }
@@ -26,13 +28,14 @@ namespace PatientAPI.Controllers
         public async Task<IActionResult> GetAllPatients()
         {
             var patientList = await _patientService.GetAllPatients();
-            var patientDtoList = patientList.Select(patient => MapFrom(patient));
+            var patientDtoList = patientList?.Select(patient => MapFrom(patient));
 
             if (patientDtoList is null || !patientDtoList.Any())
             {
+                _logger.LogError("Product list empty.");
                 return NotFound();
             }
-
+            _logger.LogInformation("Get Product list success.");
             return Ok(patientDtoList);
         }
 
@@ -50,9 +53,11 @@ namespace PatientAPI.Controllers
 
             if (patient is null)
             {
+                _logger.LogError("Product not found.");
                 return NotFound();
             }
 
+            _logger.LogInformation("Product found.");
             return Ok(patient);
         }
 
