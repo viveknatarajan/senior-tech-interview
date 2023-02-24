@@ -3,23 +3,22 @@ using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
 using PatientAPI.Controllers;
 using PatientAPI.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PatientAPI.UnitTests.Controllers
 {
     public class PatientsControllerTests
     {
         readonly IPatientService patientService;
+        readonly IDataMaskService dataMaskService;
         readonly PatientsController sut;
+
 
         public PatientsControllerTests()
         {
             patientService = Substitute.For<IPatientService>();
-            sut = new PatientsController(patientService);
+            dataMaskService = Substitute.For<IDataMaskService>();
+
+            sut = new PatientsController(patientService, dataMaskService);
         }
 
         [Fact]
@@ -41,7 +40,6 @@ namespace PatientAPI.UnitTests.Controllers
             var response = sut.GetAllPatients().Result as OkObjectResult;
             response.Should().NotBeNull();
             response.StatusCode.Should().Be(200);
-            response.Value.Should().Be(validPatients);
         }
     }
 }

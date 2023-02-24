@@ -64,6 +64,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddTransient<HttpClient>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddSingleton<IDataMaskService, DataMaskService>();
 builder.Services.AddSingleton(builder.Configuration.GetSection("Jwt").Get<JwtConfiguration>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("ApiConfiguration").Get<ApiConfiguration>());
 

@@ -3,6 +3,6 @@
     public interface IPatientService
     {
         Task<IEnumerable<Patient>> GetAllPatients();
-        Task<Patient?> GetById(int id);
+        Task<Patient?> GetById(string id);
     }
 }

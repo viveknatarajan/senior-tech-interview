@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PatientAPI.Dtos;
 using PatientAPI.Services;
 
 namespace PatientAPI.Controllers
@@ -10,34 +11,42 @@ namespace PatientAPI.Controllers
     [ApiController]
     public class PatientsController : ControllerBase
     {
-        private readonly IPatientService patientService;
+        private readonly IPatientService _patientService;
+        private readonly IDataMaskService _dataMaskService;
 
-        public PatientsController(IPatientService patientService)
+        public PatientsController(IPatientService patientService, IDataMaskService dataMaskService)
         {
-            this.patientService = patientService ?? throw new ArgumentNullException(nameof(patientService));
+            _patientService = patientService ?? throw new ArgumentNullException(nameof(patientService));
+            _dataMaskService = dataMaskService ?? throw new ArgumentNullException(nameof(dataMaskService));
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Patient>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<PatientDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllPatients()
         {
-            var patients = await patientService.GetAllPatients();
+            var patientList = await _patientService.GetAllPatients();
+            var patientDtoList = patientList.Select(patient => MapFrom(patient));
 
-            if (patients is null || !patients.Any())
+            if (patientDtoList is null || !patientDtoList.Any())
             {
                 return NotFound();
             }
 
-            return Ok(patients);
+            return Ok(patientDtoList);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(Patient), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetPatient(int id)
+        public async Task<IActionResult> GetPatient(string id)
         {
-            var patient = await patientService.GetById(id);
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return BadRequest();
+            }
+
+            var patient = MapFrom(await _patientService.GetById(_dataMaskService.Decrypt(id)));
 
             if (patient is null)
             {
@@ -45,6 +54,24 @@ namespace PatientAPI.Controllers
             }
 
             return Ok(patient);
+        }
+
+        private PatientDto MapFrom(Patient patient)
+        {
+            return new PatientDto
+            {
+                City = patient.City,
+                AddressLine1 = patient.AddressLine1,
+
+                PatientId = _dataMaskService.Encrypt(patient.PatientId),
+                AddressLine2 = patient.AddressLine2,
+                DateOfBirth = patient.DateOfBirth,
+                FirstName = patient.FirstName,
+                Gender = patient.Gender,
+                LastName = patient.LastName,
+                PostalCode = patient.PostalCode,
+                State = patient.State,
+            };
         }
     }
 }

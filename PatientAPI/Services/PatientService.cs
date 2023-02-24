@@ -15,7 +15,7 @@ namespace PatientAPI.Services
                              ?? throw new ArgumentNullException(nameof(apiConfiguration.BaseUrl)); ;
         }
 
-        public async Task<Patient?> GetById(int id)
+        public async Task<Patient?> GetById(string id)
         {
             Patient? patient = null;
 

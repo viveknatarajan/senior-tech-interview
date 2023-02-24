@@ -1,9 +1,6 @@
-﻿using System.Security.Cryptography;
-using System.Text.Json.Serialization;
-
-namespace PatientAPI
+﻿namespace PatientAPI.Dtos
 {
-    public class Patient
+    public class PatientDto
     {
         public string PatientId { get; set; }
         public string FirstName { get; set; }
@@ -15,6 +12,5 @@ namespace PatientAPI
         public string City { get; set; }
         public string State { get; set; }
         public string PostalCode { get; set; }
-
     }
 }
