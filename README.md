@@ -1,6 +1,12 @@
 # senior-tech-interview
 
-## Credentials : test@test.com | test
+### Run
+`dotnet run --project PatientAPI/PatientAPI.csproj`
+
+### Unit Test (Partially covered)
+`dotnet test`
+
+### Credentials : test@test.com | test
 
 API:
 1. Create a new .NET project that will host three endpoints:
